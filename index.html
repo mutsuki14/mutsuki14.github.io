@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>交互式家装避坑指南</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals & Soft Teal -->
+    <!-- Application Structure Plan: The application is structured into four main task-oriented sections (Preparation, Material Selection, Construction Supervision, Acceptance & Handover) accessible via a sticky top navigation. This non-linear, thematic structure is more user-friendly than the original report's linear format. It allows homeowners to quickly access information relevant to their current stage in the renovation process. Key interactions include accordions for contract pitfalls, modals for material guides, interactive checklists for supervision, and charts for data visualization, all designed to transform passive reading into active exploration and practical application. -->
+    <!-- Visualization & Content Choices: 
+        1. Contract Pitfalls (Report Part 1) -> Goal: Organize/Inform -> Viz: Interactive Accordion -> Interaction: Click to expand/collapse -> Justification: Breaks down dense text into digestible, user-controlled chunks, improving readability. -> Library/Method: Vanilla JS.
+        2. Payment Schedule (Report Part 1) -> Goal: Inform -> Viz: Doughnut Chart -> Interaction: Hover for details -> Justification: Visually represents the recommended payment distribution, making it easy to grasp. -> Library/Method: Chart.js.
+        3. Material Selection (Report Part 2) -> Goal: Compare/Inform -> Viz: Card Grid with Modals -> Interaction: Click card to open detailed guide -> Justification: Provides a clean, visual entry point to complex information, preventing overwhelm. -> Library/Method: Vanilla JS.
+        4. Construction Supervision (Report Part 3) -> Goal: Organize/Inform -> Viz: Tabbed Interface for stages -> Interaction: Click tab to switch content -> Justification: Organizes the complex supervision process into clear, manageable steps. -> Library/Method: Vanilla JS.
+        5. Air Quality Standards (Report Part 4) -> Goal: Compare/Inform -> Viz: Bar Chart -> Interaction: Hover for standard values -> Justification: Clearly visualizes abstract legal limits, making the health standards tangible and understandable. -> Library/Method: Chart.js.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #FDFBF8;
+            color: #3f3f46;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #0d9488;
+            border-bottom-color: #0d9488;
+        }
+        .modal {
+            transition: opacity 0.3s ease;
+        }
+        .tab-btn.active {
+            background-color: #0d9488;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <h1 class="text-xl md:text-2xl font-bold text-teal-700">家装避坑指南</h1>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#preparation" class="nav-link font-medium pb-1">准备阶段</a>
+                    <a href="#materials" class="nav-link font-medium pb-1">选材指南</a>
+                    <a href="#supervision" class="nav-link font-medium pb-1">施工监督</a>
+                    <a href="#acceptance" class="nav-link font-medium pb-1">验收交付</a>
+                </div>
+                <div class="md:hidden">
+                    <select id="mobile-nav" class="bg-white border border-stone-300 rounded-md py-2 px-3 text-stone-700 focus:outline-none focus:ring-2 focus:ring-teal-500">
+                        <option value="#preparation">准备阶段</option>
+                        <option value="#materials">选材指南</option>
+                        <option value="#supervision">施工监督</option>
+                        <option value="#acceptance">验收交付</option>
+                    </select>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+
+        <section id="introduction" class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">欢迎来到终极家装攻略</h2>
+            <p class="max-w-3xl mx-auto text-lg text-stone-600">装修是一项复杂的系统工程。本应用旨在将繁杂的知识转化为您的实用工具，助您主动学习、过程控制、标准先行，打造一个安全、健康、高品质的理想家园。</p>
+        </section>
+
+        <section id="preparation" class="mb-16 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-teal-700">第一部分：奠定基石 - 准备阶段</h2>
+                <p class="mt-4 max-w-2xl mx-auto text-lg text-stone-600">万丈高楼平地起，成功的装修始于周密的规划与坚实的法律保障。本部分将帮助您甄选团队、解码合同陷阱、规避法律红线，从源头掌控装修全局。</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4">11个常见合同陷阱（点击展开）</h3>
+                    <div id="contract-traps-container" class="space-y-3"></div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg flex flex-col">
+                    <h3 class="text-2xl font-bold mb-4">推荐付款方式 (30-30-30-10)</h3>
+                    <p class="text-stone-600 mb-4">采用按工程节点分期付款，将付款与质量进度牢牢绑定，是保障您主动权的关键。避免在开工前支付大额预付款。</p>
+                    <div class="chart-container flex-grow">
+                        <canvas id="payment-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+             <div class="mt-8 bg-red-50 border-l-4 border-red-500 text-red-700 p-6 rounded-r-lg shadow-md">
+                <h3 class="text-2xl font-bold mb-4">法律红线：结构与安全边界</h3>
+                 <p class="mb-4 text-stone-600">住宅装修并非纯粹的私人事务，必须遵守国家法规，保障建筑安全。以下行为绝对禁止或需专业设计批准，请务必警惕并拒绝施工方的违规要求。</p>
+                <ul class="space-y-3">
+                    <li class="flex items-start"><span class="text-red-500 font-bold text-xl mr-3">🚫</span><div><strong>严禁改动承重结构:</strong> 擅自拆改承重墙、梁、板、柱等，可能引发灾难性后果。</div></li>
+                    <li class="flex items-start"><span class="text-red-500 font-bold text-xl mr-3">🚫</span><div><strong>严禁违规改造厨卫:</strong> 将无防水设计的房间（如卧室）改为厨卫，会给邻居带来极大渗漏风险。</div></li>
+                    <li class="flex items-start"><span class="text-red-500 font-bold text-xl mr-3">🚫</span><div><strong>严禁擅自扩大门窗:</strong> 在承重墙上扩大门窗洞口或拆除阳台配重墙，严重影响结构稳定。</div></li>
+                    <li class="flex items-start"><span class="text-orange-500 font-bold text-xl mr-3">⚠️</span><div><strong>必须申报批准:</strong> 改变建筑外立面、搭建构筑物、拆改供暖或燃气管道，必须获得相关主管部门批准后方可进行。</div></li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="materials" class="mb-16 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-teal-700">第二部分：慧眼识珠 - 选材指南</h2>
+                <p class="mt-4 max-w-2xl mx-auto text-lg text-stone-600">选材不仅关乎美学，更是对未来居住健康与房屋耐久性的前期投资。本部分将赋予您一双“火眼金睛”，穿透营销话术，辨别材料的真实品质。</p>
+            </div>
+            <div id="material-guides-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </section>
+
+        <section id="supervision" class="mb-16 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-teal-700">第三部分：过程为王 - 施工监督</h2>
+                <p class="mt-4 max-w-2xl mx-auto text-lg text-stone-600">“过程监督”远比“结果验收”更重要。本部分聚焦于几个最易出错且难以挽回的关键施工环节，帮助您在问题被掩盖前及时发现并要求整改。</p>
+            </div>
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="mb-6 border-b border-stone-200">
+                    <nav id="supervision-tabs" class="-mb-px flex space-x-6" aria-label="Tabs"></nav>
+                </div>
+                <div id="supervision-content"></div>
+            </div>
+        </section>
+
+        <section id="acceptance" class="scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-teal-700">第四部分：完美收官 - 验收交付</h2>
+                <p class="mt-4 max-w-2xl mx-auto text-lg text-stone-600">“最后一公里”同样关键。专业的验收流程、健康的室内空气，是您开启安心新生活的双重保障。本部分将指导您如何掌握交付主动权。</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4">室内空气质量健康检查</h3>
+                    <p class="text-stone-600 mb-4">所谓的“新家气味”往往是有害物质。请务必委托有CMA资质的机构，在家具全部进场并封闭门窗12小时后，依据GB/T 18883-2022标准进行检测。</p>
+                    <div class="chart-container">
+                        <canvas id="air-quality-chart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4">验收与保修核心要点</h3>
+                    <ul class="space-y-4 text-stone-700">
+                        <li class="flex items-start">
+                            <span class="text-teal-600 font-bold text-xl mr-3">✅</span>
+                            <div><strong>正式竣工验收:</strong> 由业主组织，施工、设计、监理方共同参与。切勿在正式验收前使用房屋，否则可能被视为“默认验收”。</div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-teal-600 font-bold text-xl mr-3">📅</span>
+                            <div><strong>法定保修期限:</strong> 防水工程保修5年，其他所有项目保修2年。保修期从《竣工验收报告》签署日开始计算。</div>
+                        </li>
+                         <li class="flex items-start">
+                            <span class="text-teal-600 font-bold text-xl mr-3">💰</span>
+                            <div><strong>质保金的力量:</strong> 在合同中约定预留5%的工程款作为质保金，在保修期（如1-2年）结束后再支付。这是制约施工方履行保修义务的有力武器。</div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-teal-600 font-bold text-xl mr-3">📜</span>
+                            <div><strong>文件齐备:</strong> 验收前，确保施工方已提供完整的技术档案，包括材料合格证、隐蔽工程记录、工程质量保修书等。</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-stone-800 text-white mt-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center">
+            <p>&copy; 2025 交互式家装避坑指南。基于《终极家装攻略》报告生成。</p>
+        </div>
+    </footer>
+    
+    <div id="material-modal" class="modal fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 id="modal-title" class="text-2xl font-bold"></h3>
+                    <button id="modal-close-btn" class="text-stone-500 hover:text-stone-800 text-3xl">&times;</button>
+                </div>
+                <div id="modal-content" class="prose max-w-none"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const data = {
+                contractTraps: [
+                    { title: "工期约定模糊", trap: "合同仅注明“总工期XX天”，未明确具体的开工和完工日期，为施工方随意拖延提供借口。", solution: "必须明确写入具体的开工和竣工日期（年/月/日），并包含明确的每日延期罚款金额。" },
+                    { title: "装修材料含糊其辞", trap: "承诺用大牌，合同中却用“优质材料”、“同等档次”等模糊词汇，易被“偷梁换柱”。", solution: "合同附件必须有详尽的《主材清单》，注明每项材料的品牌、具体型号、规格、颜色等。" },
+                    { title: "拆分报价，抬高总价", trap: "将一个完整项目拆分成多个收费项，每个单项看似便宜，加总后远超市场价。", solution: "对定制柜、水电改造等项目，要求提供“闭口”总价，避免过程中追加收费。" },
+                    { title: "虚报建材损耗", trap: "刻意在报价中夸大材料的正常损耗率（如瓷砖切割损耗），牟取不当利润。", solution: "了解不同材料的常规损耗率，对过高数值提出质疑并要求修正至合理范围。" },
+                    { title: "增减项目管理失控", trap: "施工队未经业主书面同意擅自增项，并在结算时索要高额费用。", solution: "任何变更必须有经业主签字确认的《工程变更单》后方可施工，否则有权拒付。" },
+                    { title: "隐藏的水电与垃圾费", trap: "合同未明确施工期间的水电费和建筑垃圾清运费由谁承担，最终转嫁给业主。", solution: "合同中应写明，施工期间产生的所有水电费及垃圾清运费均由装修公司承担。" },
+                    { title: "权责不对等的违约责任", trap: "违约责任条款只约束业主，而对装修公司的违约行为（如工期延误、质量问题）规定含糊。", solution: "确保违约责任条款双向平等，明确施工方在工期、质量等方面违约的具体赔偿标准。" },
+                    { title: "不利的付款方式", trap: "开工前要求支付大部分款项（如超50%），使业主在后续施工中丧失主动权。", solution: "坚决采用按节点分期付款（如30%-30%-30%-10%），将付款与工程质量和进度绑定。" },
+                    { title: "模糊的保修条款", trap: "对保修期限、范围和责任界定不清，出问题后装修公司推诿扯皮。", solution: "明确约定防水工程保修5年，其他项目2年，并注明是“包工包料”的全责保修。" },
+                    { title: "不规范的合同签署", trap: "合同未加盖公司公章，或关键附件（图纸、预算单）不全，导致法律效力存疑。", solution: "必须加盖公司有效公章，并将营业执照复印件、图纸、预算单等作为附件一并盖骑缝章。" },
+                    { title: "不保留报价清单副本", trap: "结算时，装修公司可能出示一份与最初报价不同的清单，增加莫须有的收费项目。", solution: "业主必须复印并妥善保管双方已确认的原始报价清单，作为最终结算的核对依据。" }
+                ],
+                materialGuides: [
+                    { 
+                        title: "瓷砖", 
+                        icon: "🧱",
+                        content: `
+                            <h4>店内快速质检法:</h4>
+                            <ul>
+                                <li><strong>硬度测试:</strong> 用钥匙尖在瓷砖背面用力划，无痕迹说明硬度高、耐磨。</li>
+                                <li><strong>耐污性测试:</strong> 将墨水或酱油滴在正面，10分钟后用湿布擦拭，能轻松擦净不留痕说明抗污能力强。</li>
+                                <li><strong>密度测试:</strong> 轻敲瓷砖，声音清脆悦耳说明瓷化程度高、密度大；同规格下，手感更沉的密度也更大。</li>
+                                <li><strong>吸水率测试:</strong> 在背面滴水，水滴扩散缓慢甚至不渗透的，说明吸水率低，尤其适用于厨卫空间。</li>
+                            </ul>
+                            <h4>选购提示:</h4>
+                            <p>厨房和卫生间地砖必须优先考虑防滑性能。采光不足的房间应选择浅色瓷砖。</p>
+                        `
+                    },
+                    { 
+                        title: "地板", 
+                        icon: "🪵",
+                        content: `
+                            <h4>核心指标:</h4>
+                            <ul>
+                                <li><strong>健康指标 (甲醛):</strong> 查看环保等级认证，国标A级（或E1级及以上）是安全基本保障。</li>
+                                <li><strong>耐磨性:</strong> 向商家询问耐磨转数（家用建议不低于6000转）。可用砂纸摩擦样品，质量差的会很快磨损露白。</li>
+                                <li><strong>抗水性 (吸水厚度膨胀率):</strong> 数值越低越好（优等品<2.5%）。可取小样浸水观察，膨胀明显的质量较差。</li>
+                            </ul>
+                            <h4>选购提示:</h4>
+                            <p>甲醛主要来源于胶粘剂，其质量直接决定地板的环保性能。</p>
+                        `
+                    },
+                    { 
+                        title: "卫浴洁具", 
+                        icon: "🚽",
+                        content: `
+                            <h4>座便器挑选要点:</h4>
+                            <ul>
+                                <li><strong>核心功能 (冲水效果):</strong> 务必在商家试水台进行实际测试，观察能否一次性将模拟污物冲净。</li>
+                                <li><strong>陶瓷密度与重量:</strong> 手感沉甸甸的通常用料更足，质量更好。</li>
+                                <li><strong>釉面质量:</strong> 用手触摸表面及排污管道内壁，优质釉面应光滑细腻，无凹凸感，不易挂污。在灯光下观察无砂眼或麻点。</li>
+                            </ul>
+                            <h4>选购提示:</h4>
+                            <p>选择信誉良好的正规商家，并索要和核对产品检测报告。</p>
+                        `
+                    },
+                    { 
+                        title: "油漆涂料", 
+                        icon: "🎨",
+                        content: `
+                            <h4>“望闻问切”选购法:</h4>
+                            <ul>
+                                <li><strong>望 (看包装):</strong> 检查包装是否完整，标签信息（生产日期、保质期等）是否齐全。</li>
+                                <li><strong>闻 (闻气味):</strong> 打开容器，优质环保涂料应无味或仅有淡淡树脂味，绝不应有刺鼻化学味。</li>
+                                <li><strong>问 (查状态):</strong> 搅动后，优质涂料应呈均匀细腻状态，无结块、无沉淀。</li>
+                                <li><strong>切 (选商家):</strong> 选择品牌专卖店或大型建材市场，并索要发票。</li>
+                            </ul>
+                            <h4>选购提示:</h4>
+                            <p>优先选择低VOC或零VOC产品。潮湿空间必须选择具强效防霉性能的涂料。</p>
+                        `
+                    }
+                ],
+                supervision: {
+                    tabs: ["防水工程", "瓦工工程", "木工工程", "油漆工程"],
+                    content: {
+                        "防水工程": `
+                            <h4 class="text-xl font-bold mb-3">关键点：48小时闭水试验</h4>
+                            <p class="mb-4">这是检验防水工程是否合格的唯一有效手段，必须亲自监督。在防水涂料完全干固后进行，蓄水时间不得少于48小时，水深需没过地面最高点。验收时务必与楼下邻居共同检查其天花板有无任何渗漏迹象。</p>
+                            <h4 class="text-xl font-bold mb-3">施工规范</h4>
+                            <ul class="list-disc list-inside space-y-2 text-stone-700">
+                                <li><strong>基层处理:</strong> 施工前，墙地面必须坚实、平整、干净。</li>
+                                <li><strong>规范涂刷:</strong> 多遍涂刷，总厚度不低于2mm。淋浴区墙面防水高度必须做到180cm，其他墙面至少30cm。</li>
+                                <li><strong>薄弱环节:</strong> 地漏、管根处需用无纺布等进行重点加强处理。</li>
+                            </ul>
+                        `,
+                        "瓦工工程": `
+                            <h4 class="text-xl font-bold mb-3">天敌：瓷砖空鼓</h4>
+                            <p class="mb-4">使用空鼓锤或小橡皮锤逐一轻敲瓷砖中心和四角。声音沉实为合格，发出清脆“咚咚”声即为空鼓。厨房、卫生间等潮湿区域对空鼓应零容忍，任何空鼓砖都必须返工。</p>
+                            <h4 class="text-xl font-bold mb-3">视觉检查</h4>
+                            <ul class="list-disc list-inside space-y-2 text-stone-700">
+                                <li><strong>平整度:</strong> 用2米靠尺检查，缝隙不应超过2-3mm。</li>
+                                <li><strong>砖缝:</strong> 横平竖直，宽度一致，均匀饱满。</li>
+                                <li><strong>阴阳角:</strong> 墙面转角处应呈90度直角。</li>
+                            </ul>
+                        `,
+                        "木工工程": `
+                            <h4 class="text-xl font-bold mb-3">功能与结构检查</h4>
+                             <ul class="list-disc list-inside space-y-2 text-stone-700">
+                                <li><strong>柜门与抽屉:</strong> 开关顺畅、无异响、不与门框摩擦。抽屉导轨平滑，推拉自如。</li>
+                                <li><strong>结构稳固:</strong> 板材接缝紧密，搁板水平，柜体牢固固定在墙上。</li>
+                                <li><strong>五金件:</strong> 拉手、把手、锁具等安装牢固。</li>
+                             </ul>
+                             <h4 class="text-xl font-bold mb-3">饰面质量</h4>
+                             <ul class="list-disc list-inside space-y-2 text-stone-700">
+                                 <li><strong>表面:</strong> 光滑平整，无毛刺、无划痕。</li>
+                                 <li><strong>封边:</strong> 封边条与板材边缘完美贴合，无缝隙、无起翘。这是决定家具耐用性的关键。</li>
+                                 <li><strong>收口:</strong> 嵌入式家具与墙体、天花板的接缝处应严丝合缝。</li>
+                             </ul>
+                        `,
+                        "油漆工程": `
+                            <h4 class="text-xl font-bold mb-3">“九分腻子一分漆”</h4>
+                            <p class="mb-4">优质漆面效果，九成取决于前期完美的基层处理。标准工序：清理基层 → 裂缝修补 → 满刮腻子（至少两遍）→ 反复打磨平整 → 涂刷底漆 → 涂刷面漆（至少两遍）。</p>
+                            <h4 class="text-xl font-bold mb-3">验收清单</h4>
+                            <ul class="list-disc list-inside space-y-2 text-stone-700">
+                                <li><strong>“一底两面”:</strong> 底漆不可省略，面漆至少两遍，才能保证效果和寿命。</li>
+                                <li><strong>平滑度:</strong> 侧对光线观察，漆面应平滑如镜，无刷痕、流挂、气泡等瑕疵。</li>
+                                <li><strong>颜色与边缘:</strong> 颜色均匀无色差，与门窗框等交界处的线条应笔直、清晰。</li>
+                            </ul>
+                        `
+                    }
+                }
+            };
+            
+            function setupNavigation() {
+                const navLinks = document.querySelectorAll('.nav-link');
+                const sections = document.querySelectorAll('section[id]');
+                const mobileNav = document.getElementById('mobile-nav');
+                
+                function changeActiveLink() {
+                    let index = sections.length;
+                    while(--index && window.scrollY + 100 < sections[index].offsetTop) {}
+                    
+                    navLinks.forEach((link) => link.classList.remove('active'));
+                    const activeLink = document.querySelector(`.nav-link[href="#${sections[index].id}"]`);
+                    if(activeLink) {
+                       activeLink.classList.add('active');
+                       if (mobileNav.value !== `#${sections[index].id}`) {
+                           mobileNav.value = `#${sections[index].id}`;
+                       }
+                    }
+                }
+                
+                changeActiveLink();
+                window.addEventListener('scroll', changeActiveLink);
+
+                mobileNav.addEventListener('change', (e) => {
+                    const targetId = e.target.value;
+                    document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
+                });
+            }
+
+            function setupContractTraps() {
+                const container = document.getElementById('contract-traps-container');
+                data.contractTraps.forEach((item, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'border border-stone-200 rounded-lg overflow-hidden';
+                    div.innerHTML = `
+                        <button class="w-full text-left p-4 bg-stone-50 hover:bg-stone-100 flex justify-between items-center transition duration-300">
+                            <span class="font-semibold text-teal-800">${index + 1}. ${item.title}</span>
+                            <span class="transform transition-transform duration-300 text-teal-600">&#9662;</span>
+                        </button>
+                        <div class="hidden p-4 bg-white border-t border-stone-200">
+                            <p class="mb-2"><strong class="text-red-600">陷阱:</strong> ${item.trap}</p>
+                            <p><strong class="text-green-600">对策:</strong> ${item.solution}</p>
+                        </div>
+                    `;
+                    container.appendChild(div);
+
+                    const button = div.querySelector('button');
+                    const content = div.querySelector('div');
+                    const arrow = button.querySelector('span:last-child');
+                    button.addEventListener('click', () => {
+                        const isHidden = content.classList.contains('hidden');
+                        document.querySelectorAll('#contract-traps-container .hidden').forEach(el => {
+                            if(el !== content) {
+                                el.classList.add('hidden');
+                                el.previousElementSibling.querySelector('span:last-child').classList.remove('rotate-180');
+                            }
+                        });
+                        content.classList.toggle('hidden');
+                        arrow.classList.toggle('rotate-180', !isHidden);
+                    });
+                });
+            }
+
+            function createPaymentChart() {
+                const ctx = document.getElementById('payment-chart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['合同/开工 (30%)', '水电验收 (30%)', '泥木/油漆验收 (30%)', '竣工尾款 (10%)'],
+                        datasets: [{
+                            label: '付款比例',
+                            data: [30, 30, 30, 10],
+                            backgroundColor: ['#14b8a6', '#2dd4bf', '#5eead4', '#99f6e4'],
+                            borderColor: '#FDFBF8',
+                            borderWidth: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    padding: 15,
+                                    font: {
+                                        size: 12
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `${context.label}: ${context.raw}%`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function setupMaterialGuides() {
+                const container = document.getElementById('material-guides-container');
+                const modal = document.getElementById('material-modal');
+                const modalTitle = document.getElementById('modal-title');
+                const modalContent = document.getElementById('modal-content');
+                const modalCloseBtn = document.getElementById('modal-close-btn');
+
+                data.materialGuides.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col items-center text-center';
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4">${item.icon}</div>
+                        <h3 class="text-2xl font-bold mb-2">${item.title}</h3>
+                        <p class="text-stone-500">点击查看选购与质检方法</p>
+                    `;
+                    card.addEventListener('click', () => {
+                        modalTitle.textContent = item.title;
+                        modalContent.innerHTML = item.content;
+                        modal.classList.remove('hidden');
+                        modal.classList.add('flex');
+                    });
+                    container.appendChild(card);
+                });
+                
+                function closeModal() {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }
+
+                modalCloseBtn.addEventListener('click', closeModal);
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        closeModal();
+                    }
+                });
+            }
+
+            function setupSupervisionTabs() {
+                const tabsContainer = document.getElementById('supervision-tabs');
+                const contentContainer = document.getElementById('supervision-content');
+                
+                data.supervision.tabs.forEach((tabName, index) => {
+                    const button = document.createElement('button');
+                    button.className = 'tab-btn whitespace-nowrap py-3 px-4 border-b-2 font-medium text-lg border-transparent text-stone-500 hover:text-teal-600 hover:border-teal-300 transition-colors';
+                    button.textContent = tabName;
+                    button.dataset.target = tabName;
+                    
+                    if (index === 0) {
+                        button.classList.add('active', 'border-teal-500', 'text-teal-600');
+                    }
+                    
+                    tabsContainer.appendChild(button);
+                });
+
+                function updateContent(tabName) {
+                    contentContainer.innerHTML = data.supervision.content[tabName];
+                }
+
+                tabsContainer.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('tab-btn')) {
+                        const targetTab = e.target.dataset.target;
+                        tabsContainer.querySelectorAll('.tab-btn').forEach(btn => {
+                            btn.classList.remove('active', 'border-teal-500', 'text-teal-600');
+                        });
+                        e.target.classList.add('active', 'border-teal-500', 'text-teal-600');
+                        updateContent(targetTab);
+                    }
+                });
+                
+                updateContent(data.supervision.tabs[0]);
+            }
+            
+            function createAirQualityChart() {
+                const ctx = document.getElementById('air-quality-chart').getContext('2d');
+                const pollutants = {
+                    labels: ['甲醛', '苯', 'TVOC (总挥发性有机物)'],
+                    standards: [0.08, 0.03, 0.60],
+                };
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: pollutants.labels,
+                        datasets: [{
+                            label: '国家标准限值 (mg/m³)',
+                            data: pollutants.standards,
+                            backgroundColor: ['#ef4444', '#f97316', '#eab308'],
+                            borderRadius: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'y',
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: '浓度 (mg/m³)',
+                                    font: { size: 14 }
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `标准限值: ≤ ${context.raw} mg/m³`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            setupNavigation();
+            setupContractTraps();
+            createPaymentChart();
+            setupMaterialGuides();
+            setupSupervisionTabs();
+            createAirQualityChart();
+        });
+    </script>
+</body>
+</html>
