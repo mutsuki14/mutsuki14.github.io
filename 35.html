@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>35岁前独身宣言：一份男性的自我主权声明</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', '微软雅黑', 'Microsoft YaHei', serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><defs><radialGradient id="a" cx="50%" cy="0%"><stop offset="0%" stop-color="rgba(255,255,255,.1)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></radialGradient></defs><rect width="100" height="20" fill="url(%23a)"/></svg>') repeat-x;
+            opacity: 0.1;
+        }
+
+        .main-title {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-style: italic;
+            position: relative;
+            z-index: 2;
+        }
+
+        .content {
+            padding: 2rem;
+        }
+
+        .preface {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .preface-title {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .chapter {
+            margin: 3rem 0;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 2rem;
+        }
+
+        .chapter:last-of-type {
+            border-bottom: none;
+        }
+
+        .chapter-title {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #667eea;
+            display: inline-block;
+        }
+
+        .chapter p {
+            margin-bottom: 1.2rem;
+            text-align: justify;
+            font-size: 1rem;
+        }
+
+        .chapter ul {
+            margin: 1.5rem 0;
+            padding-left: 0;
+        }
+
+        .chapter li {
+            list-style: none;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            position: relative;
+        }
+
+        .chapter li strong {
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+
+        .quote {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 10px;
+            font-style: italic;
+            text-align: center;
+            position: relative;
+        }
+
+        .quote::before {
+            content: '"';
+            font-size: 4rem;
+            position: absolute;
+            top: -0.5rem;
+            left: 1rem;
+            opacity: 0.3;
+        }
+
+        .quote::after {
+            content: '"';
+            font-size: 4rem;
+            position: absolute;
+            bottom: -2rem;
+            right: 1rem;
+            opacity: 0.3;
+        }
+
+        .conclusion {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 2rem;
+            margin: 2rem 0 0 0;
+            border-radius: 10px;
+        }
+
+        .conclusion-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .conclusion p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        .decorative-element {
+            text-align: center;
+            margin: 2rem 0;
+            font-size: 1.5rem;
+            color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+                border-radius: 10px;
+            }
+
+            .header {
+                padding: 2rem 1rem;
+            }
+
+            .main-title {
+                font-size: 1.8rem;
+            }
+
+            .content {
+                padding: 1rem;
+            }
+
+            .preface, .chapter li {
+                padding: 1rem;
+            }
+
+            .chapter-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(102, 126, 234, 0.2);
+            z-index: 1000;
+        }
+
+        .scroll-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-indicator">
+        <div class="scroll-progress" id="scrollProgress"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1 class="main-title">35岁前独身宣言</h1>
+            <p class="subtitle">一份男性的自我主权声明</p>
+        </div>
+
+        <div class="content">
+            <div class="preface">
+                <h2 class="preface-title">前言：我的选择，我的黄金时代</h2>
+                <p>我，一名行将在人生旷野中迈入35岁门槛的男性，在此郑重宣告：我将以独身之姿，迎接我生命中至为宝贵的黄金时代。这并非一时冲动，更非对情感的悲观放逐，而是一份深思熟虑后，忠于自我、拥抱自由的主权声明。</p>
+                <p>在传统观念的剧本里，三十五岁或许是"成家立业"的终极时限。然而，我拒绝被这样的时间表所绑架。我深信，生命的价值在于深度的体验与广度的探索，而非角色的按部就班。在抵达35岁这一人生里程碑之前，我选择将最宝贵的精力与时间，全然投入于自我生命的建设。</p>
+            </div>
+
+            <div class="decorative-element">⋆ ⋅ ☾ ⋅ ⋆</div>
+
+            <div class="chapter">
+                <h2 class="chapter-title">第一章：自我主权的捍卫——成为自己的国王</h2>
+                <p>我坚信，人生的首要任务是成为自己世界里拥有绝对主权的国王。这意味着，我的快乐、价值与安全感，皆非外求，而由内生。</p>
+                
+                <ul>
+                    <li><strong>精神的独立：</strong>我将以书籍、旅行与深度思考为食粮，构筑坚固的精神堡垒。不盲从于消费主义的潮流，不屈从于群体的无意识焦虑。我的思想，将是我最锋利的矛与最坚固的盾。</li>
+                    <li><strong>身体的掌控：</strong>我视身体为意志的殿堂。我将以汗水雕琢它的轮廓，以规律的作息和健康的饮食滋养它的机能。强健的体魄，是探索一切未知世界的物质基础，更是自信的终极来源。</li>
+                    <li><strong>财务的自由：</strong>我将以严谨的规划与勤奋的行动，构筑我的财务壁垒。金钱非我最终目的，但它是实现自我、抵御风险的坚实工具。经济的独立，是人格独立的有力保障。</li>
+                </ul>
+
+                <div class="quote">
+                    所谓自由，不是随心所欲，而是自我主宰。<br><span style="opacity: 0.8;">—— 康德</span>
+                </div>
+            </div>
+
+            <div class="chapter">
+                <h2 class="chapter-title">第二章：事业的远征——铸造独一无二的勋章</h2>
+                <p>于我而言，35岁前的事业，不仅是谋生手段，更是自我实现的战场。我渴望的，是深度耕耘，而非广度撒网。</p>
+                
+                <ul>
+                    <li><strong>专注与精深：</strong>我将拒绝"斜杠青年"的诱惑，选择在一个领域里，如匠人般打磨技艺，追求极致。我所求的，是成为"不可替代"的专家，而非"随处可见"的通才。</li>
+                    <li><strong>创造而非重复：</strong>我将以创造性的工作，对抗职业的倦怠。无论是策划一个项目，是攻克一个技术难题，还是创造一件作品，我都将视其为个人价值的延伸与表达。</li>
+                    <li><strong>终身学习：</strong>我将永远保持学徒的心态，对世界抱有永不熄灭的好奇心。知识的复利，将是我对抗中年危机的最强武器。</li>
+                </ul>
+            </div>
+
+            <div class="chapter">
+                <h2 class="chapter-title">第三章：关系的重塑——高质量的独处与高质量的相遇</h2>
+                <p>我选择独身，并非选择孤独。恰恰相反，我选择的是一种更高质量的连接。</p>
+                
+                <ul>
+                    <li><strong>独处的艺术：</strong>我将学会享受独处。独处，是与自我灵魂的深度对话，是能量的回收与再创造。在寂静中，我将听见内心最真实的声音。</li>
+                    <li><strong>友谊的珍视：</strong>我将以真诚与时间，浇灌值得维系的友谊。我所追求的，是能够激发彼此成长、在精神上同频共振的"战友"，而非酒桌上的"过客"。</li>
+                    <li><strong>爱情的随缘：</strong>我不抗拒爱情，但我绝不为了排遣寂寞或满足社会期待而匆忙进入一段关系。我相信，最好的爱情，是两个独立而完整的灵魂的相遇与共鸣，是"我"与"你"的锦上添花，而非"我"与"你"的雪中送炭。在那之前，我将耐心等待，并持续让自己变得更好。</li>
+                </ul>
+            </div>
+
+            <div class="chapter">
+                <h2 class="chapter-title">第四章：生活的美学——在日常中发现诗意</h2>
+                <p>一个人的生活，更应精致而充满仪式感。这是对生活本身最崇高的敬意。</p>
+                
+                <ul>
+                    <li><strong>空间的营造：</strong>我的居所，将是我的避风港与灵感源。它或许不大，但必定整洁、有序，充满个人印记。</li>
+                    <li><strong>兴趣的滋养：</strong>我将至少培养一到两项"无用"的爱好。无论是弹奏一种乐器、学习一门外语，还是投身一项运动。这些"无用之事"，恰恰是构建生命厚度的"有用之石"。</li>
+                    <li><strong>体验的追求：</strong>相比于物质的占有，我更珍视体验的价值。一场期待已久的旅行、一次与智者的深度交流、一门新技能的习得，都将是我人生财富清单上闪亮的条目。</li>
+                </ul>
+            </div>
+
+            <div class="decorative-element">⋆ ⋅ ☾ ⋅ ⋆</div>
+
+            <div class="conclusion">
+                <h2 class="conclusion-title">结语：我的宣言，我的承诺</h2>
+                <p>这份宣言，是我与自己的契约。它宣告了我对外界压力的豁免，对我内在声音的尊崇。</p>
+                <p>我并非否定婚姻的价值，我只是选择在35岁之前，以一种更专注、更纯粹的方式，去完成我的"成人礼"——一个真正意义上，精神、人格与生活能力的全面独立。</p>
+                <p>我相信，一个懂得如何与自己和谐相处的男人，一个拥有丰盈内心世界的男人，当他在未来某一天选择步入一段亲密关系时，他将能给予对方一个更优质的爱人，也将与对方共同构建一个更坚韧、更美好的共同体。</p>
+                <p><strong>35岁，不是终点，而是我全新人生的起点。在此之前，我选择独行，只为与未来那个更好的自己，和或许会遇见的那个"你"，在更高处相逢。</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 滚动进度指示器
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.getElementById('scrollProgress').style.width = scrolled + '%';
+        });
+
+        // 平滑滚动效果
+        document.addEventListener('DOMContentLoaded', () => {
+            const chapters = document.querySelectorAll('.chapter');
+            
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            chapters.forEach(chapter => {
+                chapter.style.opacity = '0';
+                chapter.style.transform = 'translateY(30px)';
+                chapter.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(chapter);
+            });
+        });
+    </script>
+</body>
+</html>
