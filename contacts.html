@@ -137,6 +137,43 @@
         .logout-btn:hover {
             background: rgba(255, 255, 255, 0.3);
         }
+
+        /* 新增按钮样式 */
+        .add-contact-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background: rgba(76, 175, 80, 0.9);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s;
+        }
+        
+        .add-contact-btn:hover {
+            background: rgba(76, 175, 80, 1);
+        }
+
+        .data-manage-btn {
+            position: absolute;
+            top: 20px;
+            left: 160px;
+            padding: 10px 20px;
+            background: rgba(255, 193, 7, 0.9);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s;
+        }
+        
+        .data-manage-btn:hover {
+            background: rgba(255, 193, 7, 1);
+        }
         
         .emergency-section {
             background: #fff;
@@ -247,6 +284,7 @@
             border-radius: 10px;
             padding: 20px;
             transition: all 0.3s;
+            position: relative;
         }
         
         .contact-card:hover {
@@ -280,6 +318,42 @@
             margin-right: 8px;
             width: 16px;
         }
+
+        /* 操作按钮样式 */
+        .contact-actions {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 5px;
+        }
+
+        .btn-edit, .btn-delete {
+            padding: 5px 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .btn-edit {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: #45a049;
+        }
+
+        .btn-delete {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #da190b;
+        }
         
         .no-results {
             text-align: center;
@@ -287,16 +361,157 @@
             color: #999;
             font-size: 1.1em;
         }
-        
+
+        /* 模态框样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 15px;
+        }
+
+        .modal-title {
+            font-size: 1.5em;
+            color: #333;
+            margin: 0;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 30px;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #666;
+            border: 1px solid #ddd;
+        }
+
+        .btn-secondary:hover {
+            background: #e9e9e9;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        /* 成功消息样式 */
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        /* 响应式设计 */
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 1.8em;
             }
             
-            .logout-btn {
+            .logout-btn, .add-contact-btn, .data-manage-btn {
                 position: static;
-                margin-top: 20px;
-                width: 100px;
+                margin: 10px 5px;
+                width: calc(33.33% - 10px);
+                left: auto;
             }
             
             .search-controls {
@@ -310,6 +525,16 @@
             .stats {
                 flex-direction: column;
                 gap: 10px;
+            }
+
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+                padding: 20px;
+            }
+
+            .modal-actions {
+                flex-direction: column;
             }
         }
     </style>
@@ -330,10 +555,14 @@
     <div id="mainContent" class="main-content">
         <div class="container">
             <div class="header">
+                <button onclick="showAddModal()" class="add-contact-btn">+ 新增联系人</button>
+                <button onclick="showDataManagement()" class="data-manage-btn">📊 数据管理</button>
                 <button onclick="logout()" class="logout-btn">退出登录</button>
                 <h1>良王庄乡机关干部通讯录</h1>
                 <p>内部使用 · 请妥善保管</p>
             </div>
+            
+            <div id="successMessage" class="success-message"></div>
             
             <div class="emergency-section">
                 <h3>🚨 紧急联系电话</h3>
@@ -379,24 +608,104 @@
             </div>
         </div>
     </div>
+
+    <!-- 新增/编辑联系人模态框 -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">新增联系人</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="contactName">姓名 *</label>
+                    <input type="text" id="contactName" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactDepartment">部门 *</label>
+                    <select id="contactDepartment" name="department" required>
+                        <option value="">请选择部门</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="contactMobile">手机号码</label>
+                    <input type="tel" id="contactMobile" name="mobile" pattern="[0-9]{11}">
+                </div>
+                <div class="form-group">
+                    <label for="contactOfficePhone">办公电话</label>
+                    <input type="tel" id="contactOfficePhone" name="officePhone">
+                </div>
+                <div class="form-group">
+                    <label for="contactHomePhone">家庭电话</label>
+                    <input type="tel" id="contactHomePhone" name="homePhone">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal()">取消</button>
+                    <button type="submit" class="btn-primary" id="submitBtn">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 数据管理模态框 -->
+    <div id="dataManagementModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">数据管理</h3>
+                <button class="close-btn" onclick="closeDataManagement()">&times;</button>
+            </div>
+            <div style="margin: 20px 0;">
+                <div class="form-group">
+                    <label>当前状态</label>
+                    <div style="padding: 10px; background: #f8f9fa; border-radius: 5px; margin-bottom: 15px;">
+                        <div>📊 总联系人数：<strong id="dataManageCount">0</strong></div>
+                        <div>💾 数据已自动保存到浏览器本地存储</div>
+                        <div>⏰ 最后更新：<span id="lastUpdateTime">未知</span></div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>数据操作</label>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button type="button" class="btn-secondary" onclick="exportData()">📥 导出数据</button>
+                        <button type="button" class="btn-secondary btn-danger" onclick="clearLocalStorage()">🗑️ 清除本地数据</button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>说明</label>
+                    <div style="font-size: 0.9em; color: #666; line-height: 1.5;">
+                        • 所有修改会自动保存到浏览器本地存储<br>
+                        • 数据仅在当前浏览器中有效<br>
+                        • 建议定期导出数据进行备份<br>
+                        • 清除浏览器数据会丢失所有修改
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn-primary" onclick="closeDataManagement()">关闭</button>
+            </div>
+        </div>
+    </div>
     
     <script>
         // 密码验证功能
         const correctPassword = '159357';
         
+        // 本地存储键名
+        const STORAGE_KEY = 'lwz_contacts_data';
+        const VERSION_KEY = 'lwz_data_version';
+        const CURRENT_VERSION = '1.0';
+        
         function checkPassword() {
             const password = document.getElementById('passwordInput').value;
             
             if (password === correctPassword) {
-                // 密码正确，显示主内容
                 document.getElementById('loginContainer').style.display = 'none';
                 document.getElementById('mainContent').style.display = 'block';
                 document.getElementById('errorMsg').style.display = 'none';
-                
-                // 初始化通讯录
                 initializeContacts();
             } else {
-                // 密码错误，显示错误信息
                 document.getElementById('errorMsg').style.display = 'block';
                 document.getElementById('passwordInput').value = '';
                 document.getElementById('passwordInput').focus();
@@ -417,8 +726,8 @@
             }
         });
         
-        // 完整的通讯录数据
-        const contactsData = `1,党政,金晶,,,13820868619
+        // 默认的通讯录数据
+        const defaultContactsData = `1,党政,金晶,,,13820868619
 2,党政,尚用革,,,13312070700
 3,党政,刘正文,,,15620565556
 4,党政,林雷,,,18102116868
@@ -552,13 +861,122 @@
 
         let contacts = [];
         let departments = new Set();
+        let editingContactId = null;
+        let nextId = 132; // 下一个可用ID
+
+        // 保存数据到本地存储
+        function saveContactsToStorage() {
+            try {
+                const dataToSave = {
+                    version: CURRENT_VERSION,
+                    contacts: contacts,
+                    nextId: nextId,
+                    timestamp: new Date().toISOString()
+                };
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
+                console.log('数据已保存到本地存储');
+            } catch (error) {
+                console.error('保存数据失败:', error);
+                alert('保存数据失败，请检查浏览器存储空间');
+            }
+        }
+
+        // 从本地存储读取数据
+        function loadContactsFromStorage() {
+            try {
+                const savedData = localStorage.getItem(STORAGE_KEY);
+                if (savedData) {
+                    const parsedData = JSON.parse(savedData);
+                    
+                    // 检查数据版本兼容性
+                    if (parsedData.version === CURRENT_VERSION && parsedData.contacts) {
+                        contacts = parsedData.contacts;
+                        nextId = parsedData.nextId || getMaxId() + 1;
+                        console.log(`已从本地存储加载 ${contacts.length} 条联系人数据`);
+                        return true;
+                    } else {
+                        console.log('本地存储数据版本不匹配，使用默认数据');
+                    }
+                }
+            } catch (error) {
+                console.error('读取本地数据失败:', error);
+            }
+            
+            // 如果没有本地数据或读取失败，使用默认数据
+            parseContactsData();
+            return false;
+        }
+
+        // 获取当前最大ID
+        function getMaxId() {
+            return contacts.length > 0 ? Math.max(...contacts.map(c => c.id)) : 0;
+        }
+
+        // 清除本地存储数据
+        function clearLocalStorage() {
+            if (confirm('确定要清除所有本地存储的数据吗？这将恢复到初始状态，所有修改都将丢失！')) {
+                localStorage.removeItem(STORAGE_KEY);
+                localStorage.removeItem(VERSION_KEY);
+                
+                // 重新加载默认数据
+                parseContactsData();
+                initializeDepartmentSelects();
+                updateStats();
+                displayContacts(contacts);
+                
+                showSuccessMessage('本地数据已清除，已恢复到初始状态');
+            }
+        }
+
+        // 导出数据为JSON文件
+        function exportData() {
+            const dataToExport = {
+                version: CURRENT_VERSION,
+                contacts: contacts,
+                exportTime: new Date().toISOString(),
+                totalContacts: contacts.length
+            };
+            
+            const dataStr = JSON.stringify(dataToExport, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = `通讯录数据_${new Date().toISOString().slice(0,10)}.json`;
+            link.click();
+            
+            showSuccessMessage('数据导出成功');
+        }
         
         function initializeContacts() {
-            // 解析通讯录数据
+            // 首先尝试从本地存储加载数据
+            const hasLocalData = loadContactsFromStorage();
+            
+            if (!hasLocalData) {
+                console.log('使用默认数据');
+            }
+            
+            // 重新构建部门列表
+            departments.clear();
+            contacts.forEach(contact => {
+                departments.add(contact.department);
+            });
+            
+            initializeDepartmentSelects();
+            updateStats();
+            displayContacts(contacts);
+            
+            // 显示数据来源提示
+            if (hasLocalData) {
+                showSuccessMessage('已加载本地保存的数据');
+            }
+        }
+
+        function parseContactsData() {
             contacts = [];
             departments.clear();
             
-            contactsData.split('\n').forEach(line => {
+            defaultContactsData.split('\n').forEach(line => {
                 const parts = line.trim().split(',');
                 if (parts.length >= 6) {
                     const contact = {
@@ -571,10 +989,15 @@
                     };
                     contacts.push(contact);
                     departments.add(contact.department);
+                    if (contact.id >= nextId) {
+                        nextId = contact.id + 1;
+                    }
                 }
             });
-            
-            // 初始化部门下拉框
+        }
+
+        function initializeDepartmentSelects() {
+            // 初始化搜索部门下拉框
             const departmentFilter = document.getElementById('departmentFilter');
             departmentFilter.innerHTML = '<option value="">所有部门</option>';
             Array.from(departments).sort().forEach(dept => {
@@ -583,12 +1006,20 @@
                 option.textContent = dept;
                 departmentFilter.appendChild(option);
             });
-            
-            // 更新统计信息
+
+            // 初始化表单部门下拉框
+            const contactDepartment = document.getElementById('contactDepartment');
+            contactDepartment.innerHTML = '<option value="">请选择部门</option>';
+            Array.from(departments).sort().forEach(dept => {
+                const option = document.createElement('option');
+                option.value = dept;
+                option.textContent = dept;
+                contactDepartment.appendChild(option);
+            });
+        }
+
+        function updateStats() {
             document.getElementById('totalCount').textContent = contacts.length;
-            
-            // 显示所有联系人
-            displayContacts(contacts);
         }
         
         // 创建联系人卡片
@@ -597,6 +1028,10 @@
             card.className = 'contact-card';
             
             let html = `
+                <div class="contact-actions">
+                    <button class="btn-edit" onclick="editContact(${contact.id})" title="编辑">✏️</button>
+                    <button class="btn-delete" onclick="deleteContact(${contact.id})" title="删除">🗑️</button>
+                </div>
                 <div class="name">${contact.name}</div>
                 <div class="department">${contact.department}</div>
             `;
@@ -643,9 +1078,9 @@
                 const matchSearch = !searchTerm || 
                     contact.name.toLowerCase().includes(searchTerm) ||
                     contact.department.toLowerCase().includes(searchTerm) ||
-                    contact.mobile.includes(searchTerm) ||
-                    contact.officePhone.includes(searchTerm) ||
-                    contact.homePhone.includes(searchTerm);
+                    (contact.mobile && contact.mobile.includes(searchTerm)) ||
+                    (contact.officePhone && contact.officePhone.includes(searchTerm)) ||
+                    (contact.homePhone && contact.homePhone.includes(searchTerm));
                 
                 const matchDept = !selectedDept || contact.department === selectedDept;
                 
@@ -654,6 +1089,175 @@
             
             displayContacts(filtered);
         }
+
+        // 显示新增联系人模态框
+        function showAddModal() {
+            editingContactId = null;
+            document.getElementById('modalTitle').textContent = '新增联系人';
+            document.getElementById('submitBtn').textContent = '保存';
+            document.getElementById('contactForm').reset();
+            document.getElementById('contactModal').style.display = 'block';
+        }
+
+        // 显示编辑联系人模态框
+        function editContact(contactId) {
+            const contact = contacts.find(c => c.id === contactId);
+            if (!contact) return;
+
+            editingContactId = contactId;
+            document.getElementById('modalTitle').textContent = '编辑联系人';
+            document.getElementById('submitBtn').textContent = '更新';
+            
+            // 填充表单
+            document.getElementById('contactName').value = contact.name;
+            document.getElementById('contactDepartment').value = contact.department;
+            document.getElementById('contactMobile').value = contact.mobile || '';
+            document.getElementById('contactOfficePhone').value = contact.officePhone || '';
+            document.getElementById('contactHomePhone').value = contact.homePhone || '';
+            
+            document.getElementById('contactModal').style.display = 'block';
+        }
+
+        // 删除联系人
+        function deleteContact(contactId) {
+            const contact = contacts.find(c => c.id === contactId);
+            if (!contact) return;
+
+            if (confirm(`确定要删除联系人"${contact.name}"吗？此操作不可撤销。`)) {
+                contacts = contacts.filter(c => c.id !== contactId);
+                
+                // 保存到本地存储
+                saveContactsToStorage();
+                
+                departments.clear();
+                contacts.forEach(c => departments.add(c.department));
+                initializeDepartmentSelects();
+                
+                updateStats();
+                filterContacts();
+                
+                showSuccessMessage(`联系人"${contact.name}"已成功删除并保存`);
+            }
+        }
+
+        // 关闭模态框
+        function closeModal() {
+            document.getElementById('contactModal').style.display = 'none';
+            document.getElementById('contactForm').reset();
+            editingContactId = null;
+        }
+
+        // 显示成功消息
+        function showSuccessMessage(message) {
+            const msgElement = document.getElementById('successMessage');
+            msgElement.textContent = message;
+            msgElement.style.display = 'block';
+            
+            setTimeout(() => {
+                msgElement.style.display = 'none';
+            }, 3000);
+        }
+
+        // 显示数据管理模态框
+        function showDataManagement() {
+            document.getElementById('dataManageCount').textContent = contacts.length;
+            
+            // 获取最后更新时间
+            try {
+                const savedData = localStorage.getItem(STORAGE_KEY);
+                if (savedData) {
+                    const parsedData = JSON.parse(savedData);
+                    const updateTime = new Date(parsedData.timestamp).toLocaleString('zh-CN');
+                    document.getElementById('lastUpdateTime').textContent = updateTime;
+                } else {
+                    document.getElementById('lastUpdateTime').textContent = '无本地数据';
+                }
+            } catch (error) {
+                document.getElementById('lastUpdateTime').textContent = '获取失败';
+            }
+            
+            document.getElementById('dataManagementModal').style.display = 'block';
+        }
+
+        // 关闭数据管理模态框
+        function closeDataManagement() {
+            document.getElementById('dataManagementModal').style.display = 'none';
+        }
+
+        // 处理表单提交
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const contactData = {
+                name: formData.get('name').trim(),
+                department: formData.get('department'),
+                mobile: formData.get('mobile').trim(),
+                officePhone: formData.get('officePhone').trim(),
+                homePhone: formData.get('homePhone').trim()
+            };
+
+            // 验证必填字段
+            if (!contactData.name || !contactData.department) {
+                alert('请填写姓名和部门！');
+                return;
+            }
+
+            // 验证手机号格式
+            if (contactData.mobile && !/^1[3-9]\d{9}$/.test(contactData.mobile)) {
+                alert('请输入正确的手机号码！');
+                return;
+            }
+
+            if (editingContactId) {
+                // 更新现有联系人
+                const contactIndex = contacts.findIndex(c => c.id === editingContactId);
+                if (contactIndex !== -1) {
+                    contacts[contactIndex] = {
+                        ...contacts[contactIndex],
+                        ...contactData
+                    };
+                    showSuccessMessage(`联系人"${contactData.name}"已成功更新并保存`);
+                }
+            } else {
+                // 新增联系人
+                const newContact = {
+                    id: nextId++,
+                    ...contactData
+                };
+                contacts.push(newContact);
+                showSuccessMessage(`联系人"${contactData.name}"已成功添加并保存`);
+            }
+
+            // 保存到本地存储
+            saveContactsToStorage();
+            
+            // 更新数据
+            departments.add(contactData.department);
+            initializeDepartmentSelects();
+            updateStats();
+            filterContacts();
+            closeModal();
+        });
+
+        // 点击模态框外部关闭
+        window.addEventListener('click', function(event) {
+            const contactModal = document.getElementById('contactModal');
+            const dataModal = document.getElementById('dataManagementModal');
+            if (event.target === contactModal) {
+                closeModal();
+            } else if (event.target === dataModal) {
+                closeDataManagement();
+            }
+        });
+
+        // ESC键关闭模态框
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+                closeDataManagement();
+            }
+        });
     </script>
 </body>
 </html>
