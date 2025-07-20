@@ -120,59 +120,50 @@
             opacity: 0.9;
         }
         
-        .logout-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.9em;
-            transition: all 0.3s;
-        }
-        
-        .logout-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        /* 新增按钮样式 */
-        .add-contact-btn {
+        .header-buttons {
             position: absolute;
             top: 20px;
             left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .header-btn {
             padding: 10px 20px;
-            background: rgba(76, 175, 80, 0.9);
             color: white;
             border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 5px;
             cursor: pointer;
             font-size: 0.9em;
             transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .add-contact-btn {
+            background: rgba(76, 175, 80, 0.9);
         }
         
         .add-contact-btn:hover {
             background: rgba(76, 175, 80, 1);
         }
-
+        
         .data-manage-btn {
-            position: absolute;
-            top: 20px;
-            left: 160px;
-            padding: 10px 20px;
             background: rgba(255, 193, 7, 0.9);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.9em;
-            transition: all 0.3s;
         }
         
         .data-manage-btn:hover {
             background: rgba(255, 193, 7, 1);
+        }
+        
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
         }
         
         .emergency-section {
@@ -318,7 +309,7 @@
             margin-right: 8px;
             width: 16px;
         }
-
+        
         /* 操作按钮样式 */
         .contact-actions {
             position: absolute;
@@ -327,7 +318,7 @@
             display: flex;
             gap: 5px;
         }
-
+        
         .btn-edit, .btn-delete {
             padding: 5px 8px;
             border: none;
@@ -336,21 +327,21 @@
             font-size: 12px;
             transition: all 0.3s;
         }
-
+        
         .btn-edit {
             background: #4CAF50;
             color: white;
         }
-
+        
         .btn-edit:hover {
             background: #45a049;
         }
-
+        
         .btn-delete {
             background: #f44336;
             color: white;
         }
-
+        
         .btn-delete:hover {
             background: #da190b;
         }
@@ -361,7 +352,7 @@
             color: #999;
             font-size: 1.1em;
         }
-
+        
         /* 模态框样式 */
         .modal {
             display: none;
@@ -373,7 +364,7 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
         }
-
+        
         .modal-content {
             background-color: white;
             margin: 5% auto;
@@ -384,7 +375,7 @@
             position: relative;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
-
+        
         .modal-header {
             display: flex;
             justify-content: space-between;
@@ -393,13 +384,13 @@
             border-bottom: 2px solid #f0f0f0;
             padding-bottom: 15px;
         }
-
+        
         .modal-title {
             font-size: 1.5em;
             color: #333;
             margin: 0;
         }
-
+        
         .close-btn {
             background: none;
             border: none;
@@ -413,22 +404,22 @@
             align-items: center;
             justify-content: center;
         }
-
+        
         .close-btn:hover {
             color: #333;
         }
-
+        
         .form-group {
             margin-bottom: 20px;
         }
-
+        
         .form-group label {
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
             color: #333;
         }
-
+        
         .form-group input,
         .form-group select {
             width: 100%;
@@ -438,20 +429,20 @@
             font-size: 16px;
             transition: border-color 0.3s;
         }
-
+        
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
             border-color: #667eea;
         }
-
+        
         .modal-actions {
             display: flex;
             gap: 15px;
             justify-content: flex-end;
             margin-top: 30px;
         }
-
+        
         .btn-primary, .btn-secondary {
             padding: 12px 25px;
             border: none;
@@ -461,35 +452,35 @@
             font-weight: 600;
             transition: all 0.3s;
         }
-
+        
         .btn-primary {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
         }
-
+        
         .btn-primary:hover {
             transform: translateY(-2px);
         }
-
+        
         .btn-secondary {
             background: #f5f5f5;
             color: #666;
             border: 1px solid #ddd;
         }
-
+        
         .btn-secondary:hover {
             background: #e9e9e9;
         }
-
+        
         .btn-danger {
             background: #dc3545;
             color: white;
         }
-
+        
         .btn-danger:hover {
             background: #c82333;
         }
-
+        
         /* 成功消息样式 */
         .success-message {
             background: #d4edda;
@@ -500,18 +491,62 @@
             margin-bottom: 20px;
             display: none;
         }
-
+        
+        /* 文件输入框样式 */
+        #jsonFileInput {
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        #jsonFileInput:hover {
+            border-color: #667eea !important;
+            background-color: #f8f9ff;
+        }
+        
+        /* 预览列表样式 */
+        #importPreviewList {
+            font-family: inherit;
+        }
+        
+        #importPreviewList::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        #importPreviewList::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        
+        #importPreviewList::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+        
+        #importPreviewList::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+        
+        /* 单选按钮样式优化 */
+        input[type="radio"] {
+            margin-right: 8px;
+            transform: scale(1.1);
+        }
+        
         /* 响应式设计 */
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 1.8em;
             }
             
-            .logout-btn, .add-contact-btn, .data-manage-btn {
+            .header-buttons {
                 position: static;
-                margin: 10px 5px;
-                width: calc(33.33% - 10px);
-                left: auto;
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+            
+            .header-btn {
+                flex: 1;
+                min-width: 120px;
             }
             
             .search-controls {
@@ -526,13 +561,16 @@
                 flex-direction: column;
                 gap: 10px;
             }
-
+            
             .modal-content {
                 margin: 10% auto;
                 width: 95%;
                 padding: 20px;
+                max-width: 700px;
+                max-height: 80vh;
+                overflow-y: auto;
             }
-
+            
             .modal-actions {
                 flex-direction: column;
             }
@@ -555,9 +593,13 @@
     <div id="mainContent" class="main-content">
         <div class="container">
             <div class="header">
-                <button onclick="showAddModal()" class="add-contact-btn">+ 新增联系人</button>
-                <button onclick="showDataManagement()" class="data-manage-btn">📊 数据管理</button>
-                <button onclick="logout()" class="logout-btn">退出登录</button>
+                <div class="header-buttons">
+                    <div>
+                        <button onclick="showAddModal()" class="header-btn add-contact-btn">+ 新增联系人</button>
+                        <button onclick="showDataManagement()" class="header-btn data-manage-btn">📊 数据管理</button>
+                    </div>
+                    <button onclick="logout()" class="header-btn logout-btn">退出登录</button>
+                </div>
                 <h1>良王庄乡机关干部通讯录</h1>
                 <p>内部使用 · 请妥善保管</p>
             </div>
@@ -649,7 +691,7 @@
 
     <!-- 数据管理模态框 -->
     <div id="dataManagementModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content" style="max-width: 600px;">
             <div class="modal-header">
                 <h3 class="modal-title">数据管理</h3>
                 <button class="close-btn" onclick="closeDataManagement()">&times;</button>
@@ -657,33 +699,114 @@
             <div style="margin: 20px 0;">
                 <div class="form-group">
                     <label>当前状态</label>
-                    <div style="padding: 10px; background: #f8f9fa; border-radius: 5px; margin-bottom: 15px;">
-                        <div>📊 总联系人数：<strong id="dataManageCount">0</strong></div>
-                        <div>💾 数据已自动保存到浏览器本地存储</div>
-                        <div>⏰ 最后更新：<span id="lastUpdateTime">未知</span></div>
+                    <div style="padding: 15px; background: #f8f9fa; border-radius: 8px; margin-bottom: 20px;">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                            <div>📊 总联系人数：<strong id="dataManageCount">0</strong></div>
+                            <div>💾 数据已自动保存</div>
+                            <div>⏰ 最后更新：<span id="lastUpdateTime">未知</span></div>
+                        </div>
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label>数据操作</label>
-                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                        <button type="button" class="btn-secondary" onclick="exportData()">📥 导出数据</button>
-                        <button type="button" class="btn-secondary btn-danger" onclick="clearLocalStorage()">🗑️ 清除本地数据</button>
+                    <label>数据导出</label>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;">
+                        <button type="button" class="btn-secondary" onclick="exportDataAsJson()" style="background: #28a745; color: white;">
+                            📥 导出JSON文件
+                        </button>
+                        <button type="button" class="btn-secondary" onclick="exportDataForBackup()" style="background: #6f42c1; color: white;">
+                            💾 导出备份文件
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>数据导入</label>
+                    <div style="margin-bottom: 15px;">
+                        <input type="file" id="jsonFileInput" accept=".json" style="margin-bottom: 10px; width: 100%; padding: 10px; border: 2px dashed #ddd; border-radius: 8px; cursor: pointer;">
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <button type="button" class="btn-secondary" onclick="importJsonData()" style="background: #17a2b8; color: white;">
+                                📤 导入JSON文件
+                            </button>
+                            <button type="button" class="btn-secondary" onclick="clearFileInput()" style="background: #6c757d; color: white;">
+                                🗑️ 清除选择
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>危险操作</label>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;">
+                        <button type="button" class="btn-secondary btn-danger" onclick="clearLocalStorage()">
+                            🗑️ 清除本地数据
+                        </button>
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label>说明</label>
-                    <div style="font-size: 0.9em; color: #666; line-height: 1.5;">
-                        • 所有修改会自动保存到浏览器本地存储<br>
-                        • 数据仅在当前浏览器中有效<br>
-                        • 建议定期导出数据进行备份<br>
-                        • 清除浏览器数据会丢失所有修改
+                    <div style="font-size: 0.9em; color: #666; line-height: 1.6; background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                        <strong>导出功能：</strong><br>
+                        • <strong>JSON文件</strong>：标准格式，可用于数据交换<br>
+                        • <strong>备份文件</strong>：包含完整元数据的备份<br><br>
+                        <strong>导入功能：</strong><br>
+                        • 支持标准JSON格式的联系人文件<br>
+                        • 自动检测和处理重复联系人<br>
+                        • 导入前会显示预览和确认<br>
+                        • 支持批量导入大量联系人数据
                     </div>
                 </div>
             </div>
             <div class="modal-actions">
                 <button type="button" class="btn-primary" onclick="closeDataManagement()">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 导入预览模态框 -->
+    <div id="importPreviewModal" class="modal">
+        <div class="modal-content" style="max-width: 700px; max-height: 80vh; overflow-y: auto;">
+            <div class="modal-header">
+                <h3 class="modal-title">导入预览</h3>
+                <button class="close-btn" onclick="closeImportPreview()">&times;</button>
+            </div>
+            <div style="margin: 20px 0;">
+                <div id="importSummary" style="padding: 15px; background: #e7f3ff; border-radius: 8px; margin-bottom: 20px;"></div>
+                
+                <div class="form-group">
+                    <label>预览数据 (显示前10条)</label>
+                    <div id="importPreviewList" style="max-height: 300px; overflow-y: auto; border: 1px solid #ddd; border-radius: 8px; padding: 15px;">
+                        <!-- 预览数据将在这里显示 -->
+                    </div>
+                </div>
+
+                <div id="conflictSection" style="display: none;">
+                    <div class="form-group">
+                        <label style="color: #d32f2f;">⚠️ 发现重复联系人</label>
+                        <div style="margin-bottom: 15px;">
+                            <label style="font-weight: normal;">
+                                <input type="radio" name="conflictResolution" value="skip" checked>
+                                跳过重复的联系人（推荐）
+                            </label><br>
+                            <label style="font-weight: normal;">
+                                <input type="radio" name="conflictResolution" value="overwrite">
+                                覆盖现有联系人
+                            </label><br>
+                            <label style="font-weight: normal;">
+                                <input type="radio" name="conflictResolution" value="duplicate">
+                                保留重复联系人（会产生重复数据）
+                            </label>
+                        </div>
+                        <div id="conflictList" style="max-height: 150px; overflow-y: auto; background: #fff3cd; padding: 10px; border-radius: 8px;">
+                            <!-- 冲突列表将在这里显示 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary" onclick="closeImportPreview()">取消</button>
+                <button type="button" class="btn-primary" onclick="confirmImport()">确认导入</button>
             </div>
         </div>
     </div>
@@ -863,6 +986,10 @@
         let departments = new Set();
         let editingContactId = null;
         let nextId = 132; // 下一个可用ID
+        
+        // 全局变量存储待导入的数据
+        let pendingImportData = null;
+        let importConflicts = [];
 
         // 保存数据到本地存储
         function saveContactsToStorage() {
@@ -928,24 +1055,327 @@
             }
         }
 
-        // 导出数据为JSON文件
-        function exportData() {
-            const dataToExport = {
-                version: CURRENT_VERSION,
-                contacts: contacts,
-                exportTime: new Date().toISOString(),
-                totalContacts: contacts.length
+        // 导出JSON数据（标准格式）
+        function exportDataAsJson() {
+            const exportData = {
+                exportInfo: {
+                    title: "良王庄乡机关干部通讯录",
+                    exportTime: new Date().toISOString(),
+                    version: "1.0",
+                    totalContacts: contacts.length
+                },
+                contacts: contacts.map(contact => ({
+                    name: contact.name,
+                    department: contact.department,
+                    mobile: contact.mobile || "",
+                    officePhone: contact.officePhone || "",
+                    homePhone: contact.homePhone || ""
+                }))
             };
             
-            const dataStr = JSON.stringify(dataToExport, null, 2);
+            const dataStr = JSON.stringify(exportData, null, 2);
             const dataBlob = new Blob([dataStr], {type: 'application/json'});
             
             const link = document.createElement('a');
             link.href = URL.createObjectURL(dataBlob);
-            link.download = `通讯录数据_${new Date().toISOString().slice(0,10)}.json`;
+            link.download = `通讯录数据_${new Date().toISOString().slice(0,19).replace(/:/g, '-')}.json`;
+            document.body.appendChild(link);
             link.click();
+            document.body.removeChild(link);
             
-            showSuccessMessage('数据导出成功');
+            showSuccessMessage(`已导出 ${contacts.length} 条联系人数据`);
+        }
+
+        // 导出备份数据（包含完整元数据）
+        function exportDataForBackup() {
+            const backupData = {
+                version: CURRENT_VERSION,
+                contacts: contacts,
+                nextId: nextId,
+                timestamp: new Date().toISOString(),
+                backup: true,
+                metadata: {
+                    title: "良王庄乡机关干部通讯录 - 完整备份",
+                    totalContacts: contacts.length,
+                    departments: Array.from(departments),
+                    exportedBy: "通讯录管理系统"
+                }
+            };
+            
+            const dataStr = JSON.stringify(backupData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = `通讯录备份_${new Date().toISOString().slice(0,19).replace(/:/g, '-')}.json`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showSuccessMessage('备份文件导出成功');
+        }
+
+        // 导入JSON数据
+        function importJsonData() {
+            const fileInput = document.getElementById('jsonFileInput');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                alert('请先选择要导入的JSON文件');
+                return;
+            }
+            
+            if (file.type !== 'application/json' && !file.name.endsWith('.json')) {
+                alert('请选择JSON格式的文件');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const jsonData = JSON.parse(e.target.result);
+                    processImportData(jsonData);
+                } catch (error) {
+                    alert('JSON文件格式错误，请检查文件内容');
+                    console.error('JSON解析错误:', error);
+                }
+            };
+            
+            reader.readAsText(file, 'UTF-8');
+        }
+
+        // 处理导入数据
+        function processImportData(jsonData) {
+            let importContacts = [];
+            
+            // 尝试不同的数据格式
+            if (jsonData.contacts && Array.isArray(jsonData.contacts)) {
+                // 标准导出格式
+                importContacts = jsonData.contacts;
+            } else if (jsonData.backup && Array.isArray(jsonData.contacts)) {
+                // 备份格式
+                importContacts = jsonData.contacts;
+            } else if (Array.isArray(jsonData)) {
+                // 直接数组格式
+                importContacts = jsonData;
+            } else {
+                alert('无法识别的JSON数据格式');
+                return;
+            }
+            
+            // 验证和清理数据
+            const validContacts = [];
+            const invalidContacts = [];
+            
+            importContacts.forEach((contact, index) => {
+                if (validateContactData(contact)) {
+                    // 清理数据
+                    const cleanedContact = {
+                        name: contact.name.trim(),
+                        department: contact.department.trim(),
+                        mobile: (contact.mobile || '').trim(),
+                        officePhone: (contact.officePhone || '').trim(),
+                        homePhone: (contact.homePhone || '').trim()
+                    };
+                    validContacts.push(cleanedContact);
+                } else {
+                    invalidContacts.push({index: index + 1, contact: contact});
+                }
+            });
+            
+            if (validContacts.length === 0) {
+                alert('没有找到有效的联系人数据');
+                return;
+            }
+            
+            if (invalidContacts.length > 0) {
+                console.warn('跳过无效数据:', invalidContacts);
+            }
+            
+            // 检查重复联系人
+            importConflicts = findConflicts(validContacts);
+            pendingImportData = validContacts;
+            
+            // 显示预览
+            showImportPreview(validContacts, invalidContacts.length);
+        }
+
+        // 验证联系人数据
+        function validateContactData(contact) {
+            return contact && 
+                   typeof contact.name === 'string' && 
+                   contact.name.trim() !== '' &&
+                   typeof contact.department === 'string' && 
+                   contact.department.trim() !== '';
+        }
+
+        // 查找重复联系人
+        function findConflicts(importContacts) {
+            const conflicts = [];
+            
+            importContacts.forEach(importContact => {
+                const existing = contacts.find(existingContact => 
+                    existingContact.name === importContact.name && 
+                    existingContact.department === importContact.department
+                );
+                
+                if (existing) {
+                    conflicts.push({
+                        import: importContact,
+                        existing: existing
+                    });
+                }
+            });
+            
+            return conflicts;
+        }
+
+        // 显示导入预览
+        function showImportPreview(validContacts, invalidCount) {
+            const summaryDiv = document.getElementById('importSummary');
+            const previewDiv = document.getElementById('importPreviewList');
+            const conflictSection = document.getElementById('conflictSection');
+            const conflictList = document.getElementById('conflictList');
+            
+            // 显示摘要信息
+            summaryDiv.innerHTML = `
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                    <div><strong>有效数据：</strong> ${validContacts.length} 条</div>
+                    <div><strong>无效数据：</strong> ${invalidCount} 条</div>
+                    <div><strong>重复数据：</strong> ${importConflicts.length} 条</div>
+                    <div><strong>状态：</strong> <span style="color: green;">准备导入</span></div>
+                </div>
+            `;
+            
+            // 显示预览数据（前10条）
+            const previewData = validContacts.slice(0, 10);
+            previewDiv.innerHTML = previewData.map((contact, index) => `
+                <div style="padding: 10px; border-bottom: 1px solid #eee; ${index % 2 === 0 ? 'background: #f9f9f9;' : ''}">
+                    <div style="font-weight: bold; color: #333;">${contact.name}</div>
+                    <div style="color: #666; font-size: 0.9em;">${contact.department}</div>
+                    <div style="font-size: 0.8em; color: #888;">
+                        ${contact.mobile ? `📱 ${contact.mobile}` : ''}
+                        ${contact.officePhone ? `☎️ ${contact.officePhone}` : ''}
+                        ${contact.homePhone ? `🏠 ${contact.homePhone}` : ''}
+                    </div>
+                </div>
+            `).join('');
+            
+            if (validContacts.length > 10) {
+                previewDiv.innerHTML += `<div style="padding: 10px; text-align: center; color: #666;">... 还有 ${validContacts.length - 10} 条数据</div>`;
+            }
+            
+            // 处理重复数据
+            if (importConflicts.length > 0) {
+                conflictSection.style.display = 'block';
+                conflictList.innerHTML = importConflicts.map(conflict => `
+                    <div style="padding: 8px; border-bottom: 1px solid #ddd;">
+                        <strong>${conflict.import.name}</strong> (${conflict.import.department})
+                        <div style="font-size: 0.8em; color: #666;">将与现有联系人产生冲突</div>
+                    </div>
+                `).join('');
+            } else {
+                conflictSection.style.display = 'none';
+            }
+            
+            // 显示预览模态框
+            document.getElementById('importPreviewModal').style.display = 'block';
+        }
+
+        // 确认导入
+        function confirmImport() {
+            if (!pendingImportData) {
+                alert('没有待导入的数据');
+                return;
+            }
+            
+            const conflictResolution = document.querySelector('input[name="conflictResolution"]:checked')?.value || 'skip';
+            let importedCount = 0;
+            let skippedCount = 0;
+            let updatedCount = 0;
+            
+            pendingImportData.forEach(importContact => {
+                const existingIndex = contacts.findIndex(c => 
+                    c.name === importContact.name && c.department === importContact.department
+                );
+                
+                if (existingIndex !== -1) {
+                    // 处理重复数据
+                    switch (conflictResolution) {
+                        case 'skip':
+                            skippedCount++;
+                            break;
+                        case 'overwrite':
+                            contacts[existingIndex] = {
+                                ...contacts[existingIndex],
+                                ...importContact
+                            };
+                            updatedCount++;
+                            break;
+                        case 'duplicate':
+                            contacts.push({
+                                id: nextId++,
+                                ...importContact
+                            });
+                            importedCount++;
+                            break;
+                    }
+                } else {
+                    // 新增联系人
+                    contacts.push({
+                        id: nextId++,
+                        ...importContact
+                    });
+                    importedCount++;
+                }
+            });
+            
+            // 更新部门列表
+            departments.clear();
+            contacts.forEach(contact => {
+                departments.add(contact.department);
+            });
+            
+            // 保存数据
+            saveContactsToStorage();
+            
+            // 更新界面
+            initializeDepartmentSelects();
+            updateStats();
+            displayContacts(contacts);
+            
+            // 关闭模态框
+            closeImportPreview();
+            closeDataManagement();
+            
+            // 显示结果
+            let resultMessage = `导入完成！新增 ${importedCount} 条`;
+            if (updatedCount > 0) resultMessage += `，更新 ${updatedCount} 条`;
+            if (skippedCount > 0) resultMessage += `，跳过 ${skippedCount} 条重复数据`;
+            
+            showSuccessMessage(resultMessage);
+            
+            // 清理
+            pendingImportData = null;
+            importConflicts = [];
+            clearFileInput();
+        }
+
+        // 关闭导入预览
+        function closeImportPreview() {
+            document.getElementById('importPreviewModal').style.display = 'none';
+            pendingImportData = null;
+            importConflicts = [];
+        }
+
+        // 清除文件选择
+        function clearFileInput() {
+            document.getElementById('jsonFileInput').value = '';
+        }
+
+        // 兼容旧版本的导出函数
+        function exportData() {
+            exportDataAsJson();
         }
         
         function initializeContacts() {
@@ -1244,10 +1674,14 @@
         window.addEventListener('click', function(event) {
             const contactModal = document.getElementById('contactModal');
             const dataModal = document.getElementById('dataManagementModal');
+            const importModal = document.getElementById('importPreviewModal');
+            
             if (event.target === contactModal) {
                 closeModal();
             } else if (event.target === dataModal) {
                 closeDataManagement();
+            } else if (event.target === importModal) {
+                closeImportPreview();
             }
         });
 
@@ -1256,6 +1690,7 @@
             if (event.key === 'Escape') {
                 closeModal();
                 closeDataManagement();
+                closeImportPreview();
             }
         });
     </script>
