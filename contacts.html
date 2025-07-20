@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>良王庄乡机关干部通讯录</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: #f0f2f5;
+            color: #333;
+        }
+        
+        /* 登录界面样式 */
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .login-card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            margin: 20px;
+        }
+        
+        .login-title {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .login-subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.95em;
+        }
+        
+        .password-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+        
+        .password-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .error-msg {
+            color: #d32f2f;
+            margin-top: 15px;
+            font-size: 0.9em;
+            display: none;
+        }
+        
+        /* 主要内容样式 */
+        .main-content {
+            display: none;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .emergency-section {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .emergency-section h3 {
+            color: #d32f2f;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .emergency-contacts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .emergency-card {
+            background: #ffebee;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #d32f2f;
+        }
+        
+        .emergency-card .title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .emergency-card .phone {
+            color: #d32f2f;
+            font-size: 1.2em;
+        }
+        
+        .search-section {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-controls {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        input[type="text"], select {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .stat-item .label {
+            color: #666;
+        }
+        
+        .stat-item .value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .contacts-section {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        
+        .contact-card {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border-color: #667eea;
+        }
+        
+        .contact-card .name {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .contact-card .department {
+            color: #667eea;
+            font-size: 0.95em;
+            margin-bottom: 12px;
+        }
+        
+        .contact-card .info-item {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+            color: #555;
+            font-size: 0.95em;
+        }
+        
+        .contact-card .info-item .icon {
+            margin-right: 8px;
+            width: 16px;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 60px;
+            color: #999;
+            font-size: 1.1em;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .logout-btn {
+                position: static;
+                margin-top: 20px;
+                width: 100px;
+            }
+            
+            .search-controls {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 登录界面 -->
+    <div id="loginContainer" class="login-container">
+        <div class="login-card">
+            <h2 class="login-title">🔐 系统验证</h2>
+            <p class="login-subtitle">良王庄乡机关干部通讯录<br>请输入访问密码</p>
+            <input type="password" id="passwordInput" class="password-input" placeholder="请输入密码" maxlength="10">
+            <button onclick="checkPassword()" class="login-btn">验证登录</button>
+            <div id="errorMsg" class="error-msg">❌ 密码错误，请重新输入</div>
+        </div>
+    </div>
+
+    <!-- 主要内容 -->
+    <div id="mainContent" class="main-content">
+        <div class="container">
+            <div class="header">
+                <button onclick="logout()" class="logout-btn">退出登录</button>
+                <h1>良王庄乡机关干部通讯录</h1>
+                <p>内部使用 · 请妥善保管</p>
+            </div>
+            
+            <div class="emergency-section">
+                <h3>🚨 紧急联系电话</h3>
+                <div class="emergency-contacts">
+                    <div class="emergency-card">
+                        <div class="title">区政府办</div>
+                        <div class="phone">📞 63032789</div>
+                    </div>
+                    <div class="emergency-card">
+                        <div class="title">区委办公室</div>
+                        <div class="phone">📞 63032888</div>
+                    </div>
+                    <div class="emergency-card">
+                        <div class="title">区应急办</div>
+                        <div class="phone">📞 68692821</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="search-section">
+                <div class="search-controls">
+                    <input type="text" id="searchInput" placeholder="搜索姓名、部门或电话号码..." onkeyup="filterContacts()">
+                    <select id="departmentFilter" onchange="filterContacts()">
+                        <option value="">所有部门</option>
+                    </select>
+                </div>
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="label">总人数：</span>
+                        <span class="value" id="totalCount">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="label">筛选结果：</span>
+                        <span class="value" id="filteredCount">0</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contacts-section">
+                <div class="contact-grid" id="contactGrid">
+                    <!-- 联系人卡片将通过JavaScript动态生成 -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 密码验证功能
+        const correctPassword = '159357';
+        
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            
+            if (password === correctPassword) {
+                // 密码正确，显示主内容
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                document.getElementById('errorMsg').style.display = 'none';
+                
+                // 初始化通讯录
+                initializeContacts();
+            } else {
+                // 密码错误，显示错误信息
+                document.getElementById('errorMsg').style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('passwordInput').focus();
+            }
+        }
+        
+        function logout() {
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('loginContainer').style.display = 'flex';
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('errorMsg').style.display = 'none';
+        }
+        
+        // 回车键登录
+        document.getElementById('passwordInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                checkPassword();
+            }
+        });
+        
+        // 完整的通讯录数据
+        const contactsData = `1,党政,金晶,,,13820868619
+2,党政,尚用革,,,13312070700
+3,党政,刘正文,,,15620565556
+4,党政,林雷,,,18102116868
+5,党政,马君静,,,13820025188
+6,党政,赵元坤,,,13602041495
+7,党政,张雯晶,,,15822730000
+8,党政,徐福鹏,,,18622036918
+9,党政,马燕丽,,,13672035881
+10,党政,魏智超,,,13512477666
+11,党政,刘艳,,,15620875826
+12,党政,姚良田,,,15510997472
+13,党政,张宝德,,,13752177538
+14,党政,刘子鑫,,,18522720493
+15,党政,张建亭,,,15510913720
+16,党政,侯玉嵩,,,15854333267
+17,党委办(人大办),孟铭辉,68120063,,18622699053
+18,党委办(人大办),樊蓉,68120063,,17627684548
+19,党委办(人大办),郑凯,68120063,,17866829580
+20,党委办(人大办),王乔,68120063,,15602189093
+21,党委办(人大办),王心怡,68120063,,13114951612
+22,党委办(人大办),荣蓉,68120063,,17622571603
+23,党委办(人大办),沙琳琳,68120063,,19922636889
+24,党委办(人大办),刘晔,68120063,,15922000527
+25,党委办(人大办),王克,,,13920473979
+26,政府办,姚頔,68120168,,15620371493
+27,政府办,邓波,68120168,,18920971591
+28,政府办,陈宇清,68120168,,17726071230
+29,政府办,黎志会,68120168,,13821821523
+30,纪检室,王彬,68123106,,13662162166
+31,纪检室,孔令振,68123106,,15522648761
+32,工会妇联,郝海媚,68123109,,18810565483
+33,工会妇联,贾硕,68123109,,15822312299
+34,农业办,郭大星,68120068,,15522190533
+35,农业办,于俊生,68120068,,13132273512
+36,农业办,黄思萌,68120068,,13212056669
+37,农业办,杨振强,68120068,,15922075300
+38,农业办,商福丽,68120068,,18502266961
+39,农业办,刘帅,68120068,,18698065373
+40,农业办,孙策,68120068,,18920769595
+41,农业办,李恩来,68120068,,13820820799
+42,农业办,林广艳,68120068,,15302029861
+43,农业办,孙昌平,68120068,,18222909243
+44,农业办,张强,68120068,,13502088856
+45,工业办,杜雨龙,68120071,,13820888863
+46,工业办,郭俊玲,68120071,,13820058698
+47,工业办,于洪春,68120071,,13702079811
+48,工业办,杜效军,68120071,,13920016465
+49,工业办,于顺尧,68120071,,15022744833
+50,工业办,曹彤彤,68120071,,13512820088
+51,工业办,杜恩禹,68120071,,17526536004
+52,司法所,高永义,68120079,,15902288868
+53,司法所,赵娟,68120079,,13672028571
+54,司法所,刘琳,68120079,,18522506497
+55,安监,赵磊,68123108,,18622852119
+56,安监,张鹤馨,68123108,,18602630455
+57,安监,刘阳,68123108,,18302275555
+58,安监,张涛,68123108,,15510883180
+59,安监,滑桂春,68123108,,18920591566
+60,安监,杨健,68123108,,13022280995
+61,卫健办,郝树云,68120369,,15002263296
+62,卫健办,安秀英,68120369,,13132043877
+63,卫健办,林永亮,68120084,,13821169309
+64,卫健办,田静,68120084,,13323393635
+65,卫健办,周作燕,68120084,,13516260311
+66,卫健办,郝维,68120084,,13672157681
+67,武装部,杨敬磊,,,15822211208
+68,综治办信访办,翟炳浩,68128992,,18822620909
+69,综治办信访办,葛学凯,68128992,,13302109995
+70,综治办信访办,彭国政,68128992,病假,13682003180
+71,综治办信访办,朱慧敏,68128992,,13526102969
+72,综治办信访办,卢建旻,68128992,,15222788369
+73,综治办信访办,宋友祥,68128992,,13132115305
+74,乡文教,张英成,68120044,,13207688889
+75,乡文教,于慧敏,68120044,,13920560996
+76,统计办,郭巍琪,68123096,,15122407868
+77,统计办,王钰,68123096,,15122055520
+78,统计办,杜连霞,68123096,,13642169402
+79,统计办,杜锁,68123096,,18526034253
+80,城建办,刘生会,68123156,,13207653623
+81,城建办,王蕊,68123156,,15733298634
+82,城建办,杨帅,68123156,,15222225272
+83,城建办,潘琦琦,68123156,,18722062480
+84,环卫办（户厕办）,鲍志强,68121399,,13752738032
+85,环卫办（户厕办）,张忠建,68121399,,13662052266
+86,环卫办（户厕办）,韩素勇,68121399,,13502192191
+87,环卫办（户厕办）,李津津,68121399,,13002249856
+88,劳动保障,刘刚,68120333,,15620975178
+89,劳动保障,陈彦君,68120333,,15022393432
+90,劳动保障,赵胜,68120333,,18502255881
+91,劳动保障,井萍,68120333,,18512240576
+92,退役军人服务站,王煜颖,68132212,,15122944081
+93,退役军人服务站,刘桐,68132212,,16600208000
+94,服务大厅,张志发,68122915,,18920271365
+95,财政所,朱建新,68120081,,13512226667
+96,财政所,王雪妍,68120081,,15022336693
+97,财政所,潘绍荣,68120081,,13102295093
+98,财政所,耳贵瑞,68120081,,15922207913
+99,民政办,胡艳华,68120078,,18602629788
+100,民政办,赵丹,68120078,,13920339342
+101,民政办,李欣,68120078,,15822322738
+102,民政办,于珊,68120078,,15522312135
+103,民政办,张闰智,68120078,,17301616592
+104,村帐乡管,李德玲,68120456,,13920361122
+105,村帐乡管,李润春,68120456,,18602631890
+106,村帐乡管,李洪艳,68120456,,15620929970
+107,河长办,张恩兴,,,18630896160
+108,执法大队,朱军禾,68123098,,15822990028
+109,执法大队,宋金胜,68123098,,15822990033
+110,执法大队,项昆,68123098,,18630808606
+111,执法大队,梁建忠,68123098,,15122547160
+112,执法大队,刘雷,68123098,,18602680361
+113,执法大队,杨恩祥,68123098,,13820504831
+114,执法大队,杨鹏,68123098,,15900232223
+115,执法大队,高明会,68123098,,15222025492
+116,司机,张永路,,,13388019299
+117,司机,梁金国,,,13821649187
+118,门卫1,张文武,68122916,,13920907833
+119,门卫1,闫福江,68122916,,15922075303
+120,门卫2,杨恩祥,68122698,,13820504831
+121,门卫2,郝连忠,68122698,68120989,13516108611
+122,派出所,张雯晶,68120110,,15822730000
+123,税务所,陈相,68815027,,13110063666
+124,水站,刘伟,,,13110015200
+125,市场监管所,董金锋,68123791,,13752568158
+126,邮局,兰颖,68120405,,15692272230
+127,卫生院,王宝良,68120042,,13212069756
+128,农商行,闫隽,,,15802299095
+129,电业所,张澜,68602096,,18920300189
+130,电话站,张达,68120999,68120159,18602205375
+131,电管站,马跃洲,,,13820048444`;
+
+        let contacts = [];
+        let departments = new Set();
+        
+        function initializeContacts() {
+            // 解析通讯录数据
+            contacts = [];
+            departments.clear();
+            
+            contactsData.split('\n').forEach(line => {
+                const parts = line.trim().split(',');
+                if (parts.length >= 6) {
+                    const contact = {
+                        id: parseInt(parts[0]),
+                        department: parts[1].trim(),
+                        name: parts[2].trim(),
+                        officePhone: parts[3].trim(),
+                        homePhone: parts[4].trim(),
+                        mobile: parts[5].trim()
+                    };
+                    contacts.push(contact);
+                    departments.add(contact.department);
+                }
+            });
+            
+            // 初始化部门下拉框
+            const departmentFilter = document.getElementById('departmentFilter');
+            departmentFilter.innerHTML = '<option value="">所有部门</option>';
+            Array.from(departments).sort().forEach(dept => {
+                const option = document.createElement('option');
+                option.value = dept;
+                option.textContent = dept;
+                departmentFilter.appendChild(option);
+            });
+            
+            // 更新统计信息
+            document.getElementById('totalCount').textContent = contacts.length;
+            
+            // 显示所有联系人
+            displayContacts(contacts);
+        }
+        
+        // 创建联系人卡片
+        function createContactCard(contact) {
+            const card = document.createElement('div');
+            card.className = 'contact-card';
+            
+            let html = `
+                <div class="name">${contact.name}</div>
+                <div class="department">${contact.department}</div>
+            `;
+            
+            if (contact.mobile) {
+                html += `<div class="info-item"><span class="icon">📱</span>${contact.mobile}</div>`;
+            }
+            
+            if (contact.officePhone) {
+                html += `<div class="info-item"><span class="icon">☎️</span>${contact.officePhone}</div>`;
+            }
+            
+            if (contact.homePhone && contact.homePhone !== '病假') {
+                html += `<div class="info-item"><span class="icon">🏠</span>${contact.homePhone}</div>`;
+            }
+            
+            card.innerHTML = html;
+            return card;
+        }
+        
+        // 显示所有联系人
+        function displayContacts(contactList) {
+            const grid = document.getElementById('contactGrid');
+            grid.innerHTML = '';
+            
+            if (contactList.length === 0) {
+                grid.innerHTML = '<div class="no-results">没有找到符合条件的联系人</div>';
+                return;
+            }
+            
+            contactList.forEach(contact => {
+                grid.appendChild(createContactCard(contact));
+            });
+            
+            document.getElementById('filteredCount').textContent = contactList.length;
+        }
+        
+        // 筛选联系人
+        function filterContacts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const selectedDept = document.getElementById('departmentFilter').value;
+            
+            const filtered = contacts.filter(contact => {
+                const matchSearch = !searchTerm || 
+                    contact.name.toLowerCase().includes(searchTerm) ||
+                    contact.department.toLowerCase().includes(searchTerm) ||
+                    contact.mobile.includes(searchTerm) ||
+                    contact.officePhone.includes(searchTerm) ||
+                    contact.homePhone.includes(searchTerm);
+                
+                const matchDept = !selectedDept || contact.department === selectedDept;
+                
+                return matchSearch && matchDept;
+            });
+            
+            displayContacts(filtered);
+        }
+    </script>
+</body>
+</html>
